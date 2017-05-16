@@ -1,4 +1,3 @@
-
 # coding: utf-8
 from bundle_graph import create_bundle_graph
 from random import uniform
@@ -40,7 +39,3 @@ if __name__ == '__main__':
 
     gradings = get_gradings(n, k)
     print(gradings)
-
-
-
-
