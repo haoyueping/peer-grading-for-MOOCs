@@ -19,21 +19,21 @@ def randomize_complete_ranking(ranking):
 def get_gradings(n, k):
     indices = np.empty((n, k))
     indices = np.apply_along_axis(randomize_complete_ranking, 1, indices)
-    
+
     students = create_bundle_graph(n, k)
     bundles = np.empty((n,k))
     for idx, student in enumerate(students):
         bundles[idx] = sorted(student.papers)
-    
+
     rankings = np.empty_like(indices)
     for i in range(n):
         for j in range(k):
             rankings[i][j] = bundles[i][indices[i][j]]
-    
+
     return rankings
 
 if __name__ == '__main__':
-    
+
     n = 12
     k = 3
 

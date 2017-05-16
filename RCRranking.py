@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from random import randint, shuffle
-from bundle_graph import create_bundle_graph
+from gradings import get_gradings
 
 class Vertex:
     def __init__(self, id):
@@ -70,14 +70,11 @@ def dfs(ranking, visiting, vertex):
         dfs(ranking, visiting, neighbor)
     ranking.append(vertex.id)
 
-students = create_bundle_graph(1000, 6)
-rankings = []
-for student in students:
-    rankings.append(student.papers)
+if __name__ == '__main__':
+    gradings = get_gradings(1000, 6)
+    graph = create_graph(gradings)
+    for id in graph:
+        print(graph[id])
 
-graph = create_graph(rankings)
-for id in graph:
-    print(graph[id])
-
-ranking = topological_sort(graph)
-print(ranking)
+    ranking = topological_sort(graph)
+    print(ranking)
