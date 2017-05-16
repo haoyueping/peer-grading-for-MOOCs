@@ -23,9 +23,8 @@ class Vertex:
 
 def create_graph(rankings):
     graph = {}
-    shuffle(rankings)
-    for i in range(len(rankings)):
-        create_graph_helper(rankings[i], graph)
+    for ranking in rankings:
+        create_graph_helper(ranking, graph)
     break_circles(graph)
     return graph
 
@@ -70,11 +69,12 @@ def dfs(ranking, visiting, vertex):
         dfs(ranking, visiting, neighbor)
     ranking.append(vertex.id)
 
-if __name__ == '__main__':
-    gradings = get_gradings(1000, 6)
+def rcrranking(n, k):
+    gradings = get_gradings(n, k)
     graph = create_graph(gradings)
-    for id in graph:
-        print(graph[id])
-
     ranking = topological_sort(graph)
+    return ranking
+
+if __name__ == '__main__':
+    ranking = rcrranking(1000, 6)
     print(ranking)
