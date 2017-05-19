@@ -7,10 +7,6 @@ from bundle_graph import create_bundle_graph
 from RCRranking import rcrranking
 from scipy import stats
 
-def hamming_distance(list1, list2):
-    assert len(list1) == len(list2)
-    return sum(e1 != e2 for e1, e2 in zip(list1, list2))
-
 if __name__ == '__main__':
     fig = sys.argv[1]
     if fig == 'n':
