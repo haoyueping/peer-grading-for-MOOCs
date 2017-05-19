@@ -36,14 +36,9 @@ def create_bundle_graph(n, k):
         success = True
         for i in range(n):
             for j in range(i + 1, n):
-                cnt = 0
-                for l in range(k):
-                    if students[i].papers[l] == students[j].papers[l]:
-                        cnt = cnt + 1
-                    if cnt >= 2:
-                        success = False
-                        break
-                if not success:
+                cnt = len(set(students[i].papers).intersection(set(students[j].papers)))
+                if cnt >= 2:
+                    success = False
                     break
             if not success:
                 break
