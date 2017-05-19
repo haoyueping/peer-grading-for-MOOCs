@@ -36,8 +36,9 @@ if __name__ == '__main__':
 
     import random
 
-    random.seed(1)
-    np.random.seed(1)
+    seed = 2
+    random.seed(seed)
+    np.random.seed(seed)
 
     import pandas as pd
 
@@ -47,4 +48,4 @@ if __name__ == '__main__':
     gradings = get_gradings(n, k)
     print(gradings)
     df = pd.DataFrame(gradings)
-    df.to_csv("data_n_1000_k_6.csv", index=False)
+    df.to_csv("data_n_{}_k_{}.csv".format(n, k), index=False, header=False)
