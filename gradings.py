@@ -34,8 +34,17 @@ def get_gradings(n, k):
 
 if __name__ == '__main__':
 
-    n = 12
-    k = 3
+    import random
+
+    random.seed(1)
+    np.random.seed(1)
+
+    import pandas as pd
+
+    n = 1000
+    k = 6
 
     gradings = get_gradings(n, k)
     print(gradings)
+    df = pd.DataFrame(gradings)
+    df.to_csv("data_n_1000_k_6.csv", index=False)
