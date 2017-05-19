@@ -9,11 +9,10 @@ def page_rank(short_rankings):
 
     P = np.zeros((n, n))
     for ranking in short_rankings:
-        for i in range(k):
-            for j in range(i + 1, k):
-                better_paper = ranking[i]
-                worse_paper = ranking[j]
-                P[worse_paper - 1][better_paper - 1] += 1
+        for i in range(k-1):
+            better_paper = ranking[i]
+            worse_paper = ranking[i+1]
+            P[worse_paper - 1][better_paper - 1] += 1
 
     P_super = np.ones_like(P) / n
     P_super -= np.eye(n) / n
