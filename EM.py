@@ -40,7 +40,7 @@ def update_scores_by_global_ranking(rankings, scores, global_ranking):
     return scores
 
 
-def EM(rankings):
+def em(rankings):
     n, k = rankings.shape
     scores = np.tile(list(range(k)), (n, 1)) + 1
     global_ranking = borda_ordering_of_global_ranks(rankings, scores)
@@ -48,7 +48,7 @@ def EM(rankings):
         temp = str(global_ranking)
         scores = update_scores_by_global_ranking(rankings, scores, global_ranking)
         global_ranking = borda_ordering_of_global_ranks(rankings, scores)
-        print(kendalltau(truth_ranking, global_ranking))
+        # print(kendalltau(truth_ranking, global_ranking))
         if temp == str(global_ranking):
             break
     return global_ranking
@@ -58,5 +58,5 @@ if __name__ == '__main__':
     truth_ranking = list(range(1, 1000 + 1))
     rankings = np.genfromtxt('data_n_1000_k_6.csv', delimiter=',', dtype='int')
 
-    global_ranking = EM(rankings)
+    global_ranking = em(rankings)
     print(kendalltau(truth_ranking, global_ranking))

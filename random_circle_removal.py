@@ -69,12 +69,7 @@ def dfs(ranking, visiting, vertex):
         dfs(ranking, visiting, neighbor)
     ranking.append(vertex.id)
 
-def rcrranking(n, k):
-    gradings = get_gradings(n, k)
-    graph = create_graph(gradings)
+def random_circle_removal(rankings):
+    graph = create_graph(rankings)
     ranking = topological_sort(graph)
     return ranking
-
-if __name__ == '__main__':
-    ranking = rcrranking(1000, 6)
-    print(ranking)
