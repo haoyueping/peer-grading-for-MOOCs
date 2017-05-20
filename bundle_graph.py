@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 from random import randint
+import matplotlib.pyplot as plt
+from datetime import datetime
 
 class Student:
     def __init__(self, id):
@@ -31,7 +33,9 @@ def create_bundle_graph(n, k):
     students = [Student(x + 1) for x in range(n)]
     papers = [Paper(x + 1) for x in range(n)]
 
+    trial = 0
     while True:
+        trial = trial + 1
         # clear student papers
         for student in students:
             student.papers.clear()
@@ -45,8 +49,6 @@ def create_bundle_graph(n, k):
                 invalid.add(students[j].id)
                 # if no available paper left, retry
                 if avai_pap.issubset(invalid):
-                    print(avai_pap)
-                    print(invalid)
                     retry = True
                     break
                 while True:
@@ -70,16 +72,62 @@ def create_bundle_graph(n, k):
             for j in range(i + 1, n):
                 cnt = len(students[i].papers.intersection(students[j].papers))
                 if cnt >= 2:
-                    print(students[i].papers)
-                    print(students[j].papers)
                     success = False
                     break
             if not success:
                 break
         if success:
+            for student in students:
+                student.papers = list(student.papers)
             break
 
-    return students
+    return students, trial
 
 if __name__ == '__main__':
-    assignments = create_bundle_graph(1000, 3)
+    plt.figure(1)
+    m = 10
+    n = [100, 250, 500, 750, 1000]
+    k = [3, 3, 3, 3, 3]
+    trial = []
+    time = []
+    for i in range(len(n)):
+        trial.append(0)
+        time.append(0)
+        for j in range(m):
+            start = datetime.now()
+            assignments, t = create_bundle_graph(n[i], k[i])
+            time[i] = time[i] + (datetime.now() - start).total_seconds()
+            trial[i] = trial[i] + t
+        time[i] = time[i] / m
+        trial[i] = trial[i] / m
+    plt.subplot(221)
+    plt.plot(n, time)
+    plt.ylabel('time with k fixed to 3')
+    plt.show()
+    plt.subplot(222)
+    plt.plot(n, trial)
+    plt.ylabel('number of trial with k fixed to 3')
+    plt.show()
+
+    n = [500, 500, 500]
+    k = [1, 2, 3]
+    trial = []
+    time = []
+    for i in range(len(n)):
+        trial.append(0)
+        time.append(0)
+        for j in range(m):
+            start = datetime.now()
+            assignments, t = create_bundle_graph(n[i], k[i])
+            time[i] = time[i] + (datetime.now() - start).total_seconds()
+            trial[i] = trial[i] + t
+        time[i] = time[i] / m
+        trial[i] = trial[i] / m
+    plt.subplot(223)
+    plt.plot(k, time)
+    plt.ylabel('time with n fixed to 500')
+    plt.show()
+    plt.subplot(224)
+    plt.plot(k, trial)
+    plt.ylabel('number of trial with n fixed to 500')
+    plt.show()

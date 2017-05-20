@@ -9,32 +9,7 @@ from scipy import stats
 
 if __name__ == '__main__':
     fig = sys.argv[1]
-    if fig == 'n':
-        n = [100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000]
-        k = [6, 6, 6, 6, 6, 6, 6, 6, 6]
-        time_n = []
-
-        for i in range(len(n)):
-            start = datetime.now()
-            create_bundle_graph(n[i], k[i])
-            time_n.append((datetime.now() - start).total_seconds())
-        plt.plot(time_n, n)
-        plt.ylabel('with k fixed to 6')
-        plt.show()
-    elif fig == 'k':
-        n = [500, 500, 500, 500, 500, 500, 500]
-        k = [2, 4, 6, 8, 10, 12, 14]
-        time_k = []
-
-        for i in range(len(n)):
-            start = datetime.now()
-            create_bundle_graph(n[i], k[i])
-            time_k.append((datetime.now() - start).total_seconds())
-
-        plt.plot(time_k, k)
-        plt.ylabel('with n fixed to 500')
-        plt.show()
-    elif fig == 'correctness-n':
+    if fig == 'correctness-n':
         n = [100, 250, 500, 750, 1000]
         k = [6, 6, 6, 6, 6]
         correctness_n = []
