@@ -6,6 +6,7 @@ from PageRank import page_rank
 from EM import em
 from borda_ordering import borda_ordering
 
+
 # def th(ranking, th):
 #     limit = int(len(ranking) * th)
 #     ranking = list(filter(lambda x: x <= limit, ranking))
@@ -23,15 +24,17 @@ from borda_ordering import borda_ordering
 def th(ranking, th):
     limit = int(len(ranking) * th)
     rlen = len(ranking)
-    cnt = 0
-    total = rlen*(rlen-1)/2
 
+    cnt = 0
+    total = 0
     for i in range(rlen):
         for j in range(i + 1, rlen):
             if (ranking[i] < limit) or (ranking[j] < limit):
-                if (ranking[i] < ranking[j]):
-                    cnt = cnt + 1
+                total += 1
+                if ranking[i] < ranking[j]:
+                    cnt += 1
     return cnt / total
+
 
 def acc(ranking, acc):
     rlen = len(ranking)
@@ -45,6 +48,7 @@ def acc(ranking, acc):
                 if ranking[i] < ranking[j]:
                     cnt = cnt + 1
     return cnt / total
+
 
 if __name__ == '__main__':
     gradings = get_gradings(1000, 6)
