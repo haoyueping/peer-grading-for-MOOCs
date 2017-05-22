@@ -7,20 +7,6 @@ from EM import em
 from borda_ordering import borda_ordering
 
 
-# def th(ranking, th):
-#     limit = int(len(ranking) * th)
-#     ranking = list(filter(lambda x: x <= limit, ranking))
-#     rlen = len(ranking)
-#     cnt = 0
-#     total = 0
-
-#     for i in range(rlen):
-#         for j in range(i + 1, rlen):
-#             total = total + 1
-#             if ranking[i] < ranking[j]:
-#                 cnt = cnt + 1
-#     return cnt / total
-
 def th(ranking, th):
     limit = int(len(ranking) * th)
     rlen = len(ranking)
