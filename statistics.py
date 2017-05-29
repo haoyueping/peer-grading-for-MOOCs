@@ -6,7 +6,6 @@ from PageRank import page_rank
 from EM import em
 from borda_ordering import borda_ordering
 
-
 def th(ranking, th):
     limit = int(len(ranking) * th)
     rlen = len(ranking)
