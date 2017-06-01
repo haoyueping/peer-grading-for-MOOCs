@@ -1,7 +1,6 @@
 import numpy as np
 import igraph
 import itertools
-from statistics import acc,th
 
 def compute_topological_sort(weights):
     OUT=1
@@ -16,16 +15,16 @@ def get_short_rankings(distribution):
     inverse_rankings=-np.ones((n,k),dtype="int")
     argsort_rankings=np.copy(inverse_rankings)
     short_rankings=np.copy(argsort_rankings)
-    
+
     for i in range(n):
         inverse_rankings[i]=np.asarray([np.where(distribution==i+1)[0]],dtype="int")
-    
+
     for i in range(n):
         temp_short=distribution[inverse_rankings[i]]
         temp_sorted=np.sort(temp_short,axis=1)
         index_sorted=np.asarray([np.where(temp_sorted[j]==i+1) for j in range(k)]).reshape(k)
         short_rankings[i]=np.sort(index_sorted)
-    
+
     return short_rankings
 
 def get_rankings_from_types(sorted_types, short_rankings, sigma_list):
@@ -37,23 +36,23 @@ def get_rankings_from_types(sorted_types, short_rankings, sigma_list):
                 rankings[j]=rank
                 rank+=1
     return rankings+1
-        
 
-if __name__ == '__main__':
-
+def weighted_graph():
     distribution = np.genfromtxt('data_n_1000_k_6.csv', delimiter=',', dtype='int')
     short_rankings=get_short_rankings(distribution)
-        
-    n,k=distribution.shape    
+
+    n,k=distribution.shape
     k_list = list(range(k))
     sigma_list = np.asarray(list(itertools.combinations_with_replacement(k_list,k)),dtype='int')
-    
+
     weights=np.loadtxt('weights_6_0_10_0_10.txt')
     assert len(sigma_list)==weights.shape[0]
     sorted_types=compute_topological_sort(weights)
-    
+
     rankings=get_rankings_from_types(sorted_types, short_rankings, sigma_list)
-    print (acc(rankings,0.02))
-    print (acc(rankings,0.05))
-    print (th(rankings,0.1))
-    print (th(rankings,0.5))
+    return rankings
+
+
+if __name__ == '__main__':
+    rankings = weighted_graph()
+    print(rankings)

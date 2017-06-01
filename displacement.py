@@ -7,10 +7,11 @@ from gradings import get_gradings
 from PageRank import page_rank
 from EM import em
 from borda_ordering import borda_ordering
+from weighted_graph import weighted_graph
 
 n = 1000
 k = 6
-ranking_algo = ['random_circle_removal', 'page_rank', 'em', 'borda']
+ranking_algo = ['random_circle_removal', 'page_rank', 'em', 'borda', 'weighted_graph']
 
 def displacement(rankings):
     displacement_percentage = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6]
@@ -78,7 +79,8 @@ if __name__ == '__main__':
     ranking_pr = page_rank(gradings)
     ranking_em = em(gradings)
     ranking_b = borda_ordering(gradings)
-    rankings = [ranking_rcr, ranking_pr, ranking_em, ranking_b]
+    ranking_wg = weighted_graph()
+    rankings = [ranking_rcr, ranking_pr, ranking_em, ranking_b, ranking_wg]
 
     x, y = displacement(rankings)
     display(x, y, 1)

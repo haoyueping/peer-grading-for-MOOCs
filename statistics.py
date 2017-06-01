@@ -5,6 +5,7 @@ from gradings import get_gradings
 from PageRank import page_rank
 from EM import em
 from borda_ordering import borda_ordering
+from weighted_graph import weighted_graph
 
 def th(ranking, th):
     limit = int(len(ranking) * th)
@@ -65,6 +66,13 @@ if __name__ == '__main__':
     acc5.append(acc(ranking, 0.05))
 
     ranking = borda_ordering(gradings)
+    all2all.append(th(ranking, 1))
+    th10.append(th(ranking, 0.1))
+    th50.append(th(ranking, 0.5))
+    acc2.append(acc(ranking, 0.02))
+    acc5.append(acc(ranking, 0.05))
+
+    ranking = weighted_graph();
     all2all.append(th(ranking, 1))
     th10.append(th(ranking, 0.1))
     th50.append(th(ranking, 0.5))
