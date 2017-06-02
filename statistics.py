@@ -95,60 +95,60 @@ if __name__ == '__main__':
     print(acc2)
     print(acc5)
 
-    all2all_rcr = []
-    th10_rcr = []
-    acc5_rcr = []
-
-    all2all_pr = []
-    th10_pr = []
-    acc5_pr = []
-
-    all2all_em = []
-    th10_em = []
-    acc5_em = []
-
-    all2all_borda = []
-    th10_borda = []
-    acc5_borda = []
-
-    k = 100
-    for i in range(k):
-        print(i)
-        gradings = get_gradings(1000, 6)
-
-        ranking = random_circle_removal(gradings)
-        all2all_rcr.append(th(ranking, 1))
-        th10_rcr.append(th(ranking, 0.1))
-        acc5_rcr.append(acc(ranking, 0.05))
-
-        ranking = borda_ordering(gradings)
-        all2all_borda.append(th(ranking, 1));
-        th10_borda.append(th(ranking, 0.1))
-        acc5_borda.append(acc(ranking, 0.05))
-
-        ranking = page_rank(gradings)
-        all2all_pr.append(th(ranking, 1));
-        th10_pr.append(th(ranking, 0.1))
-        acc5_pr.append(acc(ranking, 0.05))
-
-        ranking = em(gradings)
-        all2all_em.append(th(ranking, 1))
-        th10_em.append(th(ranking, 0.1))
-        acc5_em.append(acc(ranking, 0.05))
-
-    rcr_borda = [[all2all_rcr, all2all_borda, 'rcr_all2all', 'borda_all2all', [0.88, 0.9, 0.41, 0.43]],
-        [th10_rcr, th10_borda, 'rcr_th10', 'borda_th10', [0.95, 0.97, 0.40, 0.42]],
-        [acc5_rcr, acc5_borda, 'rcr_acc5', 'borda_acc5', [0.91, 0.93, 0.41, 0.43]]]
-    pr_borda = [[all2all_pr, all2all_borda, 'pr_all2all', 'borda_all2all', [0.88, 0.9, 0.84, 0.86]],
-        [th10_pr, th10_borda, 'pr_th10', 'borda_th10', [0.95, 0.97, 0.90, 0.92]],
-        [acc5_pr, acc5_borda, 'pr_acc5', 'borda_acc5', [0.91, 0.93, 0.88, 0.90]]]
-    em_borda = [[all2all_em, all2all_borda, 'em_all2all', 'borda_all2all', [0.88, 0.9, 0.86, 0.88]],
-        [th10_em, th10_borda, 'em_th10', 'borda_th10', [0.95, 0.97, 0.92, 0.94]],
-        [acc5_em, acc5_borda, 'em_acc5', 'borda_acc5', [0.91, 0.93, 0.90, 0.92]]]
-    cmp = [rcr_borda, pr_borda, em_borda]
-
-    id = 1
-    for comparisons in cmp:
-        for comparison in comparisons:
-            display(comparison[1], comparison[0], comparison[3], comparison[2], comparison[4], id)
-            id += 1
+    # all2all_rcr = []
+    # th10_rcr = []
+    # acc5_rcr = []
+    #
+    # all2all_pr = []
+    # th10_pr = []
+    # acc5_pr = []
+    #
+    # all2all_em = []
+    # th10_em = []
+    # acc5_em = []
+    #
+    # all2all_borda = []
+    # th10_borda = []
+    # acc5_borda = []
+    #
+    # k = 100
+    # for i in range(k):
+    #     print(i)
+    #     gradings = get_gradings(1000, 6)
+    #
+    #     ranking = random_circle_removal(gradings)
+    #     all2all_rcr.append(th(ranking, 1))
+    #     th10_rcr.append(th(ranking, 0.1))
+    #     acc5_rcr.append(acc(ranking, 0.05))
+    #
+    #     ranking = borda_ordering(gradings)
+    #     all2all_borda.append(th(ranking, 1));
+    #     th10_borda.append(th(ranking, 0.1))
+    #     acc5_borda.append(acc(ranking, 0.05))
+    #
+    #     ranking = page_rank(gradings)
+    #     all2all_pr.append(th(ranking, 1));
+    #     th10_pr.append(th(ranking, 0.1))
+    #     acc5_pr.append(acc(ranking, 0.05))
+    #
+    #     ranking = em(gradings)
+    #     all2all_em.append(th(ranking, 1))
+    #     th10_em.append(th(ranking, 0.1))
+    #     acc5_em.append(acc(ranking, 0.05))
+    #
+    # rcr_borda = [[all2all_rcr, all2all_borda, 'rcr_all2all', 'borda_all2all', [0.88, 0.9, 0.41, 0.43]],
+    #     [th10_rcr, th10_borda, 'rcr_th10', 'borda_th10', [0.95, 0.97, 0.40, 0.42]],
+    #     [acc5_rcr, acc5_borda, 'rcr_acc5', 'borda_acc5', [0.91, 0.93, 0.41, 0.43]]]
+    # pr_borda = [[all2all_pr, all2all_borda, 'pr_all2all', 'borda_all2all', [0.88, 0.9, 0.84, 0.86]],
+    #     [th10_pr, th10_borda, 'pr_th10', 'borda_th10', [0.95, 0.97, 0.90, 0.92]],
+    #     [acc5_pr, acc5_borda, 'pr_acc5', 'borda_acc5', [0.91, 0.93, 0.88, 0.90]]]
+    # em_borda = [[all2all_em, all2all_borda, 'em_all2all', 'borda_all2all', [0.88, 0.9, 0.86, 0.88]],
+    #     [th10_em, th10_borda, 'em_th10', 'borda_th10', [0.95, 0.97, 0.92, 0.94]],
+    #     [acc5_em, acc5_borda, 'em_acc5', 'borda_acc5', [0.91, 0.93, 0.90, 0.92]]]
+    # cmp = [rcr_borda, pr_borda, em_borda]
+    #
+    # id = 1
+    # for comparisons in cmp:
+    #     for comparison in comparisons:
+    #         display(comparison[1], comparison[0], comparison[3], comparison[2], comparison[4], id)
+    #         id += 1
