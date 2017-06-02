@@ -53,7 +53,7 @@ def em(rankings):
 
 if __name__ == '__main__':
     truth_ranking = list(range(1, 1000 + 1))
-    rankings = np.genfromtxt('data_n_1000_k_6.csv', delimiter=',', dtype='int')
+    rankings = np.genfromtxt('data/data_n_1000_k_6.csv', delimiter=',', dtype='int')
 
     global_ranking = em(rankings)
     # print(kendalltau(truth_ranking, global_ranking))

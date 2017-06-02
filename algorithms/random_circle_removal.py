@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-from random import randint, shuffle
-from gradings import get_gradings
-
 class Vertex:
     def __init__(self, id):
         self.id = id

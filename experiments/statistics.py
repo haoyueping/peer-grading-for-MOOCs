@@ -2,12 +2,13 @@
 
 import matplotlib.pyplot as plt
 
-from random_circle_removal import random_circle_removal
-from gradings import get_gradings
-from PageRank import page_rank
-from EM import em
-from borda_ordering import borda_ordering
-from weighted_graph import weighted_graph
+from algorithms.EM import em
+from algorithms.PageRank import page_rank
+from algorithms.borda_ordering import borda_ordering
+from algorithms.random_circle_removal import random_circle_removal
+from algorithms.weighted_graph import weighted_graph
+from utils.gradings import get_gradings
+
 
 def th(ranking, th):
     limit = int(len(ranking) * th)

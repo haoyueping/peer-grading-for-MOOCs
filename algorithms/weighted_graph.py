@@ -38,14 +38,14 @@ def get_rankings_from_types(sorted_types, short_rankings, sigma_list):
     return rankings+1
 
 def weighted_graph():
-    distribution = np.genfromtxt('data_n_1000_k_6.csv', delimiter=',', dtype='int')
+    distribution = np.genfromtxt('data/data_n_1000_k_6.csv', delimiter=',', dtype='int')
     short_rankings=get_short_rankings(distribution)
 
     n,k=distribution.shape
     k_list = list(range(k))
     sigma_list = np.asarray(list(itertools.combinations_with_replacement(k_list,k)),dtype='int')
 
-    weights=np.loadtxt('weights_6_0_10_0_10.txt')
+    weights=np.loadtxt('data/weights_6_0_10_0_10.txt')
     assert len(sigma_list)==weights.shape[0]
     sorted_types=compute_topological_sort(weights)
 

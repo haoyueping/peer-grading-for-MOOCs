@@ -1,8 +1,11 @@
 # coding: utf-8
-from bundle_graph import create_bundle_graph
 from random import uniform
-from numpy.random import choice
+
 import numpy as np
+from numpy.random import choice
+
+from utils.bundle_graph import create_bundle_graph
+
 
 def probability_distribution_for_inserting_jth_item(j, p):
     probs = np.array([p**(j-i) for i in range(j+1)])
@@ -48,4 +51,5 @@ if __name__ == '__main__':
     gradings = get_gradings(n, k)
     print(gradings)
     df = pd.DataFrame(gradings)
-    df.to_csv("data_n_{}_k_{}.csv".format(n, k), index=False, header=False)
+    print(df.head())
+    # df.to_csv("data_n_{}_k_{}.csv".format(n, k), index=False, header=False)
