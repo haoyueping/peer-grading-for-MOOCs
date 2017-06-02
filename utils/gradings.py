@@ -39,17 +39,16 @@ if __name__ == '__main__':
 
     import random
 
-    seed = 2
+    seed = 0
     random.seed(seed)
     np.random.seed(seed)
 
     import pandas as pd
 
-    n = 1000
+    n = 10000
     k = 6
 
     gradings = get_gradings(n, k)
     print(gradings)
     df = pd.DataFrame(gradings)
-    print(df.head())
-    # df.to_csv("data_n_{}_k_{}.csv".format(n, k), index=False, header=False)
+    df.to_csv("../data/data_n_{}_k_{}.csv".format(n, k), index=False, header=False)

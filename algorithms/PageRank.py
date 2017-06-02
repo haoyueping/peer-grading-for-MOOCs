@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from numpy.linalg import matrix_power
+from numpy.linalg import svd
 from scipy.stats import kendalltau
 
 
@@ -21,9 +21,13 @@ def page_rank(short_rankings):
     for i in range(n):
         P_final[i] = P_final[i] / P_final[i].sum()
 
+    U, s, V = svd(P_final, full_matrices=False)
+    S = np.diag(s)
     while True:
+        print('new round')
         P_temp = str(P_final)
-        P_final = matrix_power(P_final, 10)
+        S = np.power(S, 2)
+        P_final = U.dot(S).dot(V)
         if P_temp == str(P_final):
             break
 
@@ -33,9 +37,11 @@ def page_rank(short_rankings):
 
 
 if __name__ == '__main__':
-    truth_ranking = list(range(1, 1000 + 1))
 
-    rankings = np.genfromtxt('data/data_n_1000_k_6.csv', delimiter=',', dtype='int')
+    n = 10000
+    truth_ranking = list(range(1, n + 1))
+
+    rankings = np.genfromtxt('../data/data_n_{}_k_6.csv'.format(n), delimiter=',', dtype='int')
     global_ranking = page_rank(rankings)
 
     accuracy = kendalltau(truth_ranking, global_ranking)
