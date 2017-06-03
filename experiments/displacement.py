@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import matplotlib.pyplot as plt
+import sys
 
 from algorithms.EM import em
 from algorithms.PageRank import page_rank
@@ -83,29 +84,54 @@ def display(x, y, id):
     plt.show()
 
 if __name__ == '__main__':
-    n, k, m = 1000, 6, 10
+    test_type = sys.argv[1]
+    n = int(sys.argv[2])
+    k = int(sys.argv[3])
+    m = int(sys.argv[4])
+    which = sys.argv[5]
     gradings = get_gradings(n, k)
-    rankings_rcr = []
-    rankings_pr = []
-    rankings_em = []
-    rankings_borda = []
     rankings = []
+    if test_type == 'em_borda':
+        ranking_algo = ['em', 'borda']
+        rankings_em = []
+        rankings_borda = []
 
-    for i in range(m):
+        for i in range(m):
+            rankings_em.append(em(gradings))
+            rankings_borda.append(borda_ordering(gradings))
+        rankings.append(rankings_em)
+        rankings.append(rankings_borda)
+    elif test_type == 'regular':
+        rankings_rcr = []
+        rankings_pr = []
+        rankings_em = []
+        rankings_borda = []
+
+        for i in range(m):
+            if n <= 1000:
+                rankings_rcr.append(random_circle_removal(gradings))
+                rankings_pr.append(page_rank(gradings))
+            rankings_em.append(em(gradings))
+            rankings_borda.append(borda_ordering(gradings))
         if n <= 1000:
-            rankings_rcr.append(random_circle_removal(gradings))
-            rankings_pr.append(page_rank(gradings))
-        rankings_em.append(em(gradings))
-        rankings_borda.append(borda_ordering(gradings))
-    if n <= 1000:
-        rankings.append(rankings_rcr)
-        rankings.append(rankings_pr)
-    rankings.append(rankings_em)
-    rankings.append(rankings_borda)
+            rankings.append(rankings_rcr)
+            rankings.append(rankings_pr)
+        rankings.append(rankings_em)
+        rankings.append(rankings_borda)
 
-    x, y = displacement(rankings, n, m)
-    display(x, y, 1)
-    x, y = interval_displacement(rankings, n, m)
-    display(x, y, 2)
-    x, y = distribution20(rankings, n, m)
-    display(x, y, 3)
+    if which == '1':
+        x, y = displacement(rankings, n, m)
+        display(x, y, 1)
+    elif which == '2':
+        x, y = interval_displacement(rankings, n, m)
+        display(x, y, 2)
+    elif which == '3':
+        x, y = distribution20(rankings, n, m)
+        display(x, y, 3)
+    elif which == 'all':
+        x, y = displacement(rankings, n, m)
+        display(x, y, 1)
+        x, y = interval_displacement(rankings, n, m)
+        display(x, y, 2)
+        x, y = distribution20(rankings, n, m)
+        display(x, y, 3)
