@@ -87,8 +87,8 @@ def create_bundle_graph(n, k):
 if __name__ == '__main__':
     plt.figure(1)
     m = 10
-    n = [100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000]
-    k = [6, 6, 6, 6, 6, 6, 6, 6, 6]
+    n = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
+    k = [6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
     trial = []
     time = []
     for i in range(len(n)):
@@ -110,8 +110,8 @@ if __name__ == '__main__':
     plt.ylabel('number of trial with k fixed to 6')
     plt.show()
 
-    n = [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000]
-    k = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+    n = [10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000]
+    k = [6, 10, 14, 18, 22, 26, 30, 34, 38, 42]
     trial = []
     time = []
     for i in range(len(n)):
@@ -126,9 +126,9 @@ if __name__ == '__main__':
         trial[i] = trial[i] / m
     plt.subplot(223)
     plt.plot(k, time)
-    plt.ylabel('time with n fixed to 1000')
+    plt.ylabel('time with n fixed to 10000')
     plt.show()
     plt.subplot(224)
     plt.plot(k, trial)
-    plt.ylabel('number of trial with n fixed to 1000')
+    plt.ylabel('number of trial with n fixed to 10000')
     plt.show()
