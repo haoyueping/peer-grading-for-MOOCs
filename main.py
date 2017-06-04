@@ -30,9 +30,10 @@ def experiment(n, k_list, repetition):
         df.to_csv('./out/results_n_{}_k_{}.csv'.format(n, str(k_list)), index=False)
 
 
+
 if __name__ == '__main__':
     repetition = 2
     n = 100
-    k_list = [6, 8, 12]
+    k_list = [6, 8]
 
     experiment(n, k_list, repetition)
