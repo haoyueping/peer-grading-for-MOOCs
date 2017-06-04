@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import matplotlib.pyplot as plt
-
 from algorithms.EM import em
 from algorithms.PageRank import page_rank
 from algorithms.borda_ordering import borda_ordering
@@ -9,8 +7,15 @@ from algorithms.random_circle_removal import random_circle_removal
 from utils.gradings import get_gradings
 
 
-def th(ranking, th):
-    limit = int(len(ranking) * th)
+def th(ranking, fraction):
+    """The total number of correctly recovered relations between pairs that include an exam paper
+    that is ranked in the top "fraction" in the ground truth. (Section 4.2)
+
+    :param ranking: grading algorithm output
+    :param fraction:
+    :return:
+    """
+    limit = int(len(ranking) * fraction)
     rlen = len(ranking)
 
     cnt = 0
@@ -24,9 +29,16 @@ def th(ranking, th):
     return cnt / total
 
 
-def acc(ranking, acc):
+def acc(ranking, fraction):
+    """The total number of correctly recovered relations between pairs with positions
+    that differ by at least "fraction" in the ground truth. (Section 4.2)
+
+    :param ranking: grading algorithm output
+    :param fraction:
+    :return:
+    """
     rlen = len(ranking)
-    gap = acc * rlen
+    gap = fraction * rlen
     cnt = 0
     total = 0
     for i in range(rlen):
@@ -37,14 +49,6 @@ def acc(ranking, acc):
                     cnt = cnt + 1
     return cnt / total
 
-def display(x, y, xlabel, ylabel, axis, id):
-    plt.figure(id)
-
-    plt.plot(x, y, 'bx')
-    plt.ylabel(ylabel)
-    plt.xlabel(xlabel)
-    plt.axis(axis)
-    plt.show()
 
 if __name__ == '__main__':
     gradings = get_gradings(1000, 6)
