@@ -25,7 +25,7 @@ def experiment(n, k_list, repetition):
                 df.loc[df.index.size] = [n, k, rep, algo_names[j], duration,
                                          kendalltau(list(range(1, n + 1)), ranking)[0], str(ranking)]
 
-        df.to_csv('../out/results_n_{}_k_{}.csv'.format(n, str(k_list)), index=False)
+        df.to_csv('results_n_{}_k_{}.csv'.format(n, str(k_list)), index=False)
 
 
 if __name__ == '__main__':

@@ -55,9 +55,6 @@ def acc(ranking, fraction):
 
 
 if __name__ == '__main__':
-    # n, k, rep, algo, time, distance, ranking
-    import pandas as pd
-
     rep = 10
     n = 1000
     k = 6
@@ -68,15 +65,10 @@ if __name__ == '__main__':
     th50s = [0 for x in algos]
     acc2s = [0 for x in algos]
     acc5s = [0 for x in algos]
-    dataSet = []
     for i in range(rep):
         gradings = get_gradings(n, k)
         for j in range(len(algos)):
-            start = time()
             ranking = algos[j](gradings)
-            duration = time() - start
-            dataSet.append(
-                [n, k, i, algo_names[j], duration, kendalltau([x + 1 for x in range(n)], ranking)[0], str(ranking)])
             all2alls[j] += th(ranking, 1)
             th10s[j] += th(ranking, 0.1)
             th50s[j] += th(ranking, 0.5)
@@ -88,8 +80,6 @@ if __name__ == '__main__':
     acc2s = [x / rep for x in acc2s]
     acc5s = [x / rep for x in acc5s]
 
-    df = pd.DataFrame(dataSet, columns=['n', 'k', 'rep', 'algo', 'time', 'distance', 'ranking'])
-    df.to_csv('results.csv', index=False)
     print(all2alls)
     print(th10s)
     print(th50s)
