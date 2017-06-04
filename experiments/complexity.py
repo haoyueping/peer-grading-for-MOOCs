@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 from algorithms.EM import em
 from algorithms.PageRank import page_rank
 from algorithms.borda_ordering import borda_ordering
 from utils.gradings import get_gradings
-from datetime import datetime
 
 def complexity(algorithm, ranking):
     start = datetime.now()
@@ -59,19 +59,13 @@ if __name__ == '__main__':
     algos = [borda_ordering, em]
     algo_names = ['borda_ordering', 'em']
     all_times = []
-    # times = []
-    # times = np.empty()
     times = pd.DataFrame(columns=['algorithm', 'n', 'repetition', 'time'])
     for i in n[:a]:
         for j in range(m):
             gradings = get_gradings(i, k)
             for algo, algo_name in zip(algos, algo_names):
                 print(i, j, algo_name)
-                # times.append(complexity(algo, gradings, m));
-                # times=np.vstack((times,complexity(algo, gradings, m)))
                 times.loc[times.index.size] = [algo_name, i, j, complexity(algo, gradings)]
-    #times=times.reshape()
-    #    all_times.append(times);
 
     displayScattered(n[:a], times, 1)
     displayAggregated(n[:a], times, 2)
