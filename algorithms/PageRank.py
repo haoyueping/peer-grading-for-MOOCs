@@ -17,8 +17,8 @@ def page_rank(short_rankings):
     P += (np.ones_like(P) - np.eye(n)) / n
     P /= P.sum(axis=1)[:, None]
 
+    print('new round.')
     while True:
-        print('new round.')
         P_temp = str(P)
         P = P.dot(P)
         P /= P.sum(axis=1)[:, None]

@@ -8,18 +8,22 @@ from algorithms.borda_ordering import borda_ordering
 from utils.gradings import get_gradings
 from datetime import datetime
 
-def complexity(algorithm, ranking, m):
-    time = 0
-    for i in range(m):
-        start = datetime.now()
-        algorithm(ranking)
-        end = datetime.now()
-        time += (end - start).total_seconds()
-    return time / m
+def complexity(algorithm, ranking):
+    start = datetime.now()
+    algorithm(ranking)
+    end = datetime.now()
+    return (end - start).total_seconds()
 
-def display(x, y, id):
+def displayAggregated(x, z, id):
+    y = []
+    for algo in algo_names:
+        df = times.loc[times['algorithm']==algo]
+        t = df.groupby('n').mean()['time'].tolist()
+        y.append(t)
+
     plt.figure(id)
-    ranking_algo = ['em', 'borda']
+    # ranking_algo = ['page_rank', 'em', 'borda']
+    ranking_algo = ['borda', 'em']
 
     handles = []
     for i in range(len(y)):
@@ -30,17 +34,44 @@ def display(x, y, id):
     plt.xlabel('numnber of student')
     plt.show()
 
+def displayScattered(x, y, id):
+    plt.figure(id)
+
+    algo_names = ['borda_ordering', 'em']
+    handles = []
+    for algo in algo_names:
+        df = times.loc[times['algorithm']==algo]
+        plt.scatter(df['n'], df['time'], label=algo)
+
+    plt.legend()
+    plt.ylabel('time(second)')
+    plt.xlabel('numnber of student')
+    plt.show()
+
 if __name__ == '__main__':
+    import pandas as pd
     m = 10
     n = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
     k = 6
 
-    algos = [em, borda_ordering]
+    a = len(n)
+
+    algos = [borda_ordering, em]
+    algo_names = ['borda_ordering', 'em']
     all_times = []
-    for algo in algos:
-        times = []
-        for i in n:
+    # times = []
+    # times = np.empty()
+    times = pd.DataFrame(columns=['algorithm', 'n', 'repetition', 'time'])
+    for i in n[:a]:
+        for j in range(m):
             gradings = get_gradings(i, k)
-            times.append(complexity(algo, gradings, m));
-        all_times.append(times);
-    display(n, all_times, 1)
+            for algo, algo_name in zip(algos, algo_names):
+                print(i, j, algo_name)
+                # times.append(complexity(algo, gradings, m));
+                # times=np.vstack((times,complexity(algo, gradings, m)))
+                times.loc[times.index.size] = [algo_name, i, j, complexity(algo, gradings)]
+    #times=times.reshape()
+    #    all_times.append(times);
+
+    displayScattered(n[:a], times, 1)
+    displayAggregated(n[:a], times, 2)
