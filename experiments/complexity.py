@@ -14,7 +14,9 @@ def complexity(algorithm, ranking):
     end = datetime.now()
     return (end - start).total_seconds()
 
-def displayAggregated(x, z, id):
+
+def displayAggregated(x, times, id):
+    algo_names = ['borda', 'em']
     y = []
     for algo in algo_names:
         df = times.loc[times['algorithm']==algo]
@@ -22,23 +24,20 @@ def displayAggregated(x, z, id):
         y.append(t)
 
     plt.figure(id)
-    # ranking_algo = ['page_rank', 'em', 'borda']
-    ranking_algo = ['borda', 'em']
-
     handles = []
     for i in range(len(y)):
-        line, = plt.plot(x, y[i], label = ranking_algo[i])
+        line, = plt.plot(x, y[i], label = algo_names[i])
         handles.append(line)
     plt.legend(handles = handles)
     plt.ylabel('time(second)')
-    plt.xlabel('numnber of student')
+    plt.xlabel('number of student')
     plt.show()
 
-def displayScattered(x, y, id):
+
+def displayScattered(times, id):
     plt.figure(id)
 
-    algo_names = ['borda_ordering', 'em']
-    handles = []
+    algo_names = ['borda', 'em']
     for algo in algo_names:
         df = times.loc[times['algorithm']==algo]
         plt.scatter(df['n'], df['time'], label=algo)
@@ -50,14 +49,14 @@ def displayScattered(x, y, id):
 
 if __name__ == '__main__':
     import pandas as pd
-    m = 10
+    m = 2
     n = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
     k = 6
 
-    a = len(n)
+    a = 2 #len(n)
 
     algos = [borda_ordering, em]
-    algo_names = ['borda_ordering', 'em']
+    algo_names = ['borda', 'em']
     all_times = []
     times = pd.DataFrame(columns=['algorithm', 'n', 'repetition', 'time'])
     for i in n[:a]:
@@ -67,5 +66,5 @@ if __name__ == '__main__':
                 print(i, j, algo_name)
                 times.loc[times.index.size] = [algo_name, i, j, complexity(algo, gradings)]
 
-    displayScattered(n[:a], times, 1)
+    displayScattered(times, 1)
     displayAggregated(n[:a], times, 2)
