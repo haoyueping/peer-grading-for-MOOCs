@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import kendalltau
 
+from utils.gradings import get_gradings
+
 
 def borda_ordering(rankings):
     n, k = rankings.shape
@@ -16,9 +18,15 @@ def borda_ordering(rankings):
 
 
 if __name__ == '__main__':
-    truth_ranking = list(range(1, 1000 + 1))
-    rankings = np.genfromtxt('data/data_n_1000_k_6.csv', delimiter=',', dtype='int')
+    n = 1000
+    truth_ranking = list(range(1, n + 1))
+    # rankings = np.genfromtxt('../data/data_n_{}_k_6.csv'.format(n), delimiter=',', dtype='int')
+    rankings = get_gradings(n, 34)
 
+    from time import time
+
+    t = time()
     global_ranking = borda_ordering(rankings)
-    res = kendalltau(global_ranking, truth_ranking)
-    print(res)
+    print('time = {}'.format(time() - t))
+    accuracy = kendalltau(truth_ranking, global_ranking)
+    print(accuracy)

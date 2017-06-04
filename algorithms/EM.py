@@ -1,7 +1,8 @@
-from random import random
 import numpy as np
 import pandas as pd
 from scipy.stats import kendalltau
+
+from utils.gradings import get_gradings
 
 
 def borda_ordering_of_global_ranks(rankings, scores):
@@ -20,6 +21,7 @@ def update_scores_by_global_ranking(rankings, scores, global_ranking):
     for idx, ranking in enumerate(rankings):
         scores[idx] = np.where(np.in1d(global_ranking, ranking))[0]
     return scores
+
 
 # def update_scores_by_global_ranking(rankings, scores, global_ranking):
 #     for idx, ranking in enumerate(rankings):
@@ -52,8 +54,15 @@ def em(rankings):
 
 
 if __name__ == '__main__':
-    truth_ranking = list(range(1, 1000 + 1))
-    rankings = np.genfromtxt('data/data_n_1000_k_6.csv', delimiter=',', dtype='int')
+    n = 1000
+    truth_ranking = list(range(1, n + 1))
+    # rankings = np.genfromtxt('../data/data_n_{}_k_6.csv'.format(n), delimiter=',', dtype='int')
+    rankings = get_gradings(n, 34)
 
+    from time import time
+
+    t = time()
     global_ranking = em(rankings)
-    # print(kendalltau(truth_ranking, global_ranking))
+    print('time = {}'.format(time() - t))
+    accuracy = kendalltau(truth_ranking, global_ranking)
+    print(accuracy)

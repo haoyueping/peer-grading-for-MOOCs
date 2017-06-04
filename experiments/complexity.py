@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
-import matplotlib.pyplot as plt
 from datetime import datetime
 
+import matplotlib.pyplot as plt
+
 from algorithms.EM import em
-from algorithms.PageRank import page_rank
 from algorithms.borda_ordering import borda_ordering
 from utils.gradings import get_gradings
+
 
 def complexity(algorithm, ranking):
     start = datetime.now()
@@ -19,16 +20,16 @@ def displayAggregated(x, times, id):
     algo_names = ['borda', 'em']
     y = []
     for algo in algo_names:
-        df = times.loc[times['algorithm']==algo]
+        df = times.loc[times['algorithm'] == algo]
         t = df.groupby('n').mean()['time'].tolist()
         y.append(t)
 
     plt.figure(id)
     handles = []
     for i in range(len(y)):
-        line, = plt.plot(x, y[i], label = algo_names[i])
+        line, = plt.plot(x, y[i], label=algo_names[i])
         handles.append(line)
-    plt.legend(handles = handles)
+    plt.legend(handles=handles)
     plt.ylabel('time(second)')
     plt.xlabel('number of student')
     plt.show()
@@ -39,7 +40,7 @@ def displayScattered(times, id):
 
     algo_names = ['borda', 'em']
     for algo in algo_names:
-        df = times.loc[times['algorithm']==algo]
+        df = times.loc[times['algorithm'] == algo]
         plt.scatter(df['n'], df['time'], label=algo)
 
     plt.legend()
@@ -47,13 +48,15 @@ def displayScattered(times, id):
     plt.xlabel('numnber of student')
     plt.show()
 
+
 if __name__ == '__main__':
     import pandas as pd
+
     m = 2
     n = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
     k = 6
 
-    a = 2 #len(n)
+    a = 2  # len(n)
 
     algos = [borda_ordering, em]
     algo_names = ['borda', 'em']

@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 from scipy.stats import kendalltau
-from scipy.linalg import eig
+
+from utils.gradings import get_gradings
 
 
 def page_rank(short_rankings):
@@ -31,13 +32,15 @@ def page_rank(short_rankings):
 
 
 if __name__ == '__main__':
-    n = 10000
+    n = 1000
     truth_ranking = list(range(1, n + 1))
 
-    rankings = np.genfromtxt('../data/data_n_{}_k_6.csv'.format(n), delimiter=',', dtype='int')
+    # rankings = np.genfromtxt('../data/data_n_{}_k_6.csv'.format(n), delimiter=',', dtype='int')
+    rankings = get_gradings(n, 34)
     from time import time
+
     t = time()
     global_ranking = page_rank(rankings)
-    print('time = {}'.format(time()-t))
+    print('time = {}'.format(time() - t))
     accuracy = kendalltau(truth_ranking, global_ranking)
     print(accuracy)

@@ -1,33 +1,45 @@
 #!/usr/bin/python3
 
-from random import randint
-import matplotlib.pyplot as plt
 from datetime import datetime
+from random import randint
+
+import matplotlib.pyplot as plt
+
 
 class Student:
     def __init__(self, id):
         self.id = id
         self.papers = set()
+
     def assign_paper(self, paper):
         self.papers.add(paper)
+
     def __str__(self):
         return str(self.id) + ": " + str(self.papers)
+
     def __eq__(self, other):
         return other and isinstance(other, Student) and other.id == self.id
+
     def __ne__(self, other):
         return not self.__eq__(other)
+
     def __hash__(self):
         return hash(self.id)
+
 
 class Paper:
     def __init__(self, id):
         self.id = id
+
     def __eq__(self, other):
         return other and isinstance(other, Paper) and other.id == self.id
+
     def __ne__(self, other):
         return not self.__eq__(other)
+
     def __hash__(self):
         return hash(self.id)
+
 
 def create_bundle_graph(n, k):
     students = [Student(x + 1) for x in range(n)]
@@ -83,6 +95,7 @@ def create_bundle_graph(n, k):
             break
 
     return students, trial
+
 
 if __name__ == '__main__':
     plt.figure(1)
