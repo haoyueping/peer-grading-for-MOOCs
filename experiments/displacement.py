@@ -3,6 +3,7 @@
 import sys
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from algorithms.EM import em
 from algorithms.PageRank import page_rank
@@ -10,7 +11,7 @@ from algorithms.borda_ordering import borda_ordering
 from algorithms.random_circle_removal import random_circle_removal
 from utils.gradings import get_gradings
 
-ranking_algo = ['random_circle_removal', 'page_rank', 'em', 'borda']
+ranking_algo = ['page_rank', 'em', 'borda']
 
 
 def displacement(rankings, n, m):
@@ -91,54 +92,23 @@ def display(x, y, id):
 
 
 if __name__ == '__main__':
-    test_type = sys.argv[1]
-    n = int(sys.argv[2])
-    k = int(sys.argv[3])
-    m = int(sys.argv[4])
-    which = sys.argv[5]
-    gradings = get_gradings(n, k)
-    rankings = []
-    if test_type == 'em_borda':
-        ranking_algo = ['em', 'borda']
-        rankings_em = []
-        rankings_borda = []
+    repetition = 10000
+    k = [6]
+    n = 10000
+    m = 1000
+    result = np.genfromtxt('out/results_n_{}_k_{}.csv'.format(repetition, str(k)), delimiter=',', dtype='str', skip_header=1)
 
-        for i in range(m):
-            rankings_em.append(em(gradings))
-            rankings_borda.append(borda_ordering(gradings))
-        rankings.append(rankings_em)
-        rankings.append(rankings_borda)
-    elif test_type == 'regular':
-        rankings_rcr = []
-        rankings_pr = []
-        rankings_em = []
-        rankings_borda = []
-
-        for i in range(m):
-            if n <= 1000:
-                rankings_rcr.append(random_circle_removal(gradings))
-                rankings_pr.append(page_rank(gradings))
-            rankings_em.append(em(gradings))
-            rankings_borda.append(borda_ordering(gradings))
-        if n <= 1000:
-            rankings.append(rankings_rcr)
-            rankings.append(rankings_pr)
-        rankings.append(rankings_em)
-        rankings.append(rankings_borda)
-
-    if which == '1':
-        x, y = displacement(rankings, n, m)
-        display(x, y, 1)
-    elif which == '2':
-        x, y = interval_displacement(rankings, n, m)
-        display(x, y, 2)
-    elif which == '3':
-        x, y = distribution20(rankings, n, m)
-        display(x, y, 3)
-    elif which == 'all':
-        x, y = displacement(rankings, n, m)
-        display(x, y, 1)
-        x, y = interval_displacement(rankings, n, m)
-        display(x, y, 2)
-        x, y = distribution20(rankings, n, m)
-        display(x, y, 3)
+    rankings_pr = []
+    rankings_em = []
+    rankings_borda = []
+    for i in range(0, m * 3, 3):
+        rankings_pr.append(result[i][7])
+        rankings_em.append(result[i][7])
+        rankings_borda.append(result[i][7])
+    rankings = [rankings_pr, rankings_em, rankings_borda]
+    x, y = displacement(rankings, n, m)
+    display(x, y, 1)
+    x, y = interval_displacement(rankings, n, m)
+    display(x, y, 2)
+    x, y = distribution20(rankings, n, m)
+    display(x, y, 3)

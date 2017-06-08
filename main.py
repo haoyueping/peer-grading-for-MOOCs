@@ -25,7 +25,7 @@ def experiment(n, k_list, repetition):
                 ranking = algos[j](gradings)
                 duration = time() - start
                 df.loc[df.index.size] = [n, k, rep, algo_names[j], duration,
-                                         kendalltau(list(range(1, n + 1)), ranking)[0], str(ranking)]
+                                         kendalltau(list(range(1, n + 1)), ranking)[0], ranking]
 
         df.to_csv('./out/results_n_{}_k_{}.csv'.format(n, str(k_list)), index=False)
 
@@ -33,7 +33,7 @@ def experiment(n, k_list, repetition):
 
 if __name__ == '__main__':
     repetition = 2
-    n = 100
+    n = 1000
     k_list = [6, 8]
 
     experiment(n, k_list, repetition)
