@@ -16,7 +16,9 @@ def experiment(n, k_list, repetition):
     algos = [random_circle_removal, page_rank, em, borda_ordering]
     algo_names = ['random_circle_removal', 'page_rank', 'em', 'borda_ordering']
 
-    df = pd.DataFrame(columns=['n', 'k', 'rep', 'algo', 'time', 'distance', 'ranking'])
+    file_name = './out/results_n_{}_k_{}.csv'.format(n, str(k_list))
+    myfile = open(file_name, 'w')
+    myfile.write('n, k, rep, algo, time, distance, ranking\n')
     for rep in range(repetition):
         for k in k_list:
             gradings = get_gradings(n, k)
@@ -24,16 +26,21 @@ def experiment(n, k_list, repetition):
                 start = time()
                 ranking = algos[j](gradings)
                 duration = time() - start
-                df.loc[df.index.size] = [n, k, rep, algo_names[j], duration,
-                                         kendalltau(list(range(1, n + 1)), ranking)[0], ranking]
+                line = '{},{},{},{},{},{}'.format(n, k, rep, algo_names[j], duration,
+                                         kendalltau(list(range(1, n + 1)), ranking)[0])
+                myfile.write(line)
+                myfile.write(',[')
+                for item in ranking[:-1]:
+                    myfile.write('{},'.format(item))
+                myfile.write('{}]\n'.format(ranking[-1]))
 
-        df.to_csv('./out/results_n_{}_k_{}.csv'.format(n, str(k_list)), index=False)
+    myfile.close()
 
 
 
 if __name__ == '__main__':
     repetition = 2
-    n = 1000
+    n = 10000
     k_list = [6, 8]
 
     experiment(n, k_list, repetition)
