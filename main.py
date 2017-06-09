@@ -18,7 +18,7 @@ def experiment(n, k_list, repetition):
 
     file_name = './out/results_n_{}_k_{}.csv'.format(n, str(k_list))
     myfile = open(file_name, 'w')
-    myfile.write('n, k, rep, algo, time, distance, ranking\n')
+    myfile.write('n,k,repetition,algorithm,time,distance,ranking\n')
     for rep in range(repetition):
         for k in k_list:
             gradings = get_gradings(n, k)
