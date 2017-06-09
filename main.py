@@ -29,10 +29,10 @@ def experiment(n, k_list, repetition):
                 line = '{},{},{},{},{},{}'.format(n, k, rep, algo_names[j], duration,
                                          kendalltau(list(range(1, n + 1)), ranking)[0])
                 myfile.write(line)
-                myfile.write(',[')
+                myfile.write(',"[')
                 for item in ranking[:-1]:
                     myfile.write('{},'.format(item))
-                myfile.write('{}]\n'.format(ranking[-1]))
+                myfile.write('{}]"\n'.format(ranking[-1]))
 
     myfile.close()
 
