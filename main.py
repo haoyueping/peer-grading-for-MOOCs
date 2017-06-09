@@ -13,8 +13,11 @@ from utils.gradings import get_gradings
 
 
 def experiment(n, k_list, repetition):
-    algos = [random_circle_removal, page_rank, em, borda_ordering]
-    algo_names = ['random_circle_removal', 'page_rank', 'em', 'borda_ordering']
+    # algos = [random_circle_removal, page_rank, em, borda_ordering]
+    # algo_names = ['random_circle_removal', 'page_rank', 'em', 'borda_ordering']
+
+    algos = [page_rank, em, borda_ordering]
+    algo_names = ['page_rank', 'em', 'borda_ordering']
 
     file_name = './out/results_n_{}_k_{}.csv'.format(n, str(k_list))
     myfile = open(file_name, 'w')
@@ -29,18 +32,18 @@ def experiment(n, k_list, repetition):
                 line = '{},{},{},{},{},{}'.format(n, k, rep, algo_names[j], duration,
                                          kendalltau(list(range(1, n + 1)), ranking)[0])
                 myfile.write(line)
-                myfile.write(',"[')
+                myfile.write(',')
                 for item in ranking[:-1]:
                     myfile.write('{},'.format(item))
-                myfile.write('{}]"\n'.format(ranking[-1]))
+                myfile.write('{}\n'.format(ranking[-1]))
 
     myfile.close()
 
 
 
 if __name__ == '__main__':
-    repetition = 2
+    repetition = 1
     n = 10000
-    k_list = [6, 8]
+    k_list = [6]
 
     experiment(n, k_list, repetition)

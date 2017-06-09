@@ -92,19 +92,28 @@ def display(x, y, id):
 
 
 if __name__ == '__main__':
-    repetition = 10000
     k = [6]
     n = 10000
-    m = 1000
-    result = np.genfromtxt('out/results_n_{}_k_{}.csv'.format(repetition, str(k)), delimiter=',', dtype='str', skip_header=1)
+    m = 1
+    result = np.genfromtxt('out/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
+    start = 6
 
     rankings_pr = []
     rankings_em = []
     rankings_borda = []
     for i in range(0, m * 3, 3):
-        rankings_pr.append(result[i][7])
-        rankings_em.append(result[i][7])
-        rankings_borda.append(result[i][7])
+        ranking = []
+        for j in range(start, n + start):
+            ranking.append(int(result[i][j]))
+        rankings_pr.append(ranking)
+        ranking = []
+        for j in range(start, n + start):
+            ranking.append(int(result[i + 1][j]))
+        rankings_em.append(ranking)
+        ranking = []
+        for j in range(start, n + start):
+            ranking.append(int(result[i + 2][j]))
+        rankings_borda.append(ranking)
     rankings = [rankings_pr, rankings_em, rankings_borda]
     x, y = displacement(rankings, n, m)
     display(x, y, 1)
