@@ -40,7 +40,7 @@ for row in spamReader:
         array_distance=np.vstack((array_distance,dist))
 #    array_distance[i%4]
 #    i+=1
-    
+
 #==============================================================================
 #     row[6]=row[6].replace('[','')
 #     row[6]=row[6].replace(']','')
