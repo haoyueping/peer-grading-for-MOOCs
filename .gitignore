@@ -2,7 +2,7 @@
 **/.idea/**
 
 # Large Data File
-out/results_n_10000_k_[6].csv
+out/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
