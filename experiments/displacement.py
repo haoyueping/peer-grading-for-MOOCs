@@ -94,7 +94,7 @@ def display(x, y, id):
 if __name__ == '__main__':
     k = [6]
     n = 10000
-    m = 1
+    m = 300
     result = np.genfromtxt('out/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
     start = 6
 
@@ -115,8 +115,8 @@ if __name__ == '__main__':
             ranking.append(int(result[i + 2][j]))
         rankings_borda.append(ranking)
     rankings = [rankings_pr, rankings_em, rankings_borda]
-    x, y = displacement(rankings, n, m)
-    display(x, y, 1)
+    # x, y = displacement(rankings, n, m)
+    # display(x, y, 1)
     x, y = interval_displacement(rankings, n, m)
     display(x, y, 2)
     x, y = distribution20(rankings, n, m)
