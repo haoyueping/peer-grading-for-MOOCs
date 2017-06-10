@@ -95,7 +95,7 @@ if __name__ == '__main__':
     k = [6]
     n = 10000
     m = 300
-    result = np.genfromtxt('out/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
+    result = np.genfromtxt('out/large/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
     start = 6
 
     rankings_pr = []
