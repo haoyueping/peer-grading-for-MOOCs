@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def extract_distance(filename):
     datafile = csv.reader(open(filename, newline=''), delimiter=',')
-    next(datafile,None)
+    next(datafile,None) # Ignore the header line
     algo_list=['random_circle_removal','page_rank','em','borda_ordering']
     array_distance=np.zeros((0,4))
     dist=np.zeros((1,4))
@@ -27,21 +27,17 @@ def create_plot(distances_all):
         m=[1,2,5,10,25,50,100]
         for i in m:
             dist=distances.reshape(i,-1)
-    #        print (dist.shape)
             c=dist.mean(axis=0).reshape(-1,1)
             
             x=np.vstack((x,np.repeat(i,c.shape[0]).reshape(-1,1)))
             y=np.vstack((y,c))
         ylist.append(y)
-    fig = plt.figure()
     
     ax = plt.gca()
-    a=5
-    b=10
-    ax.scatter(x,ylist[0],color='c',alpha=0.4, label='Random Priority')
-    ax.scatter(x*0.98,ylist[1],color='r',alpha=0.4, label='Page Rank')
-    ax.scatter(x*1.02,ylist[2],color='b',alpha=0.4, label='EM')
-    ax.scatter(x,ylist[3],color='g',alpha=0.4, label='Borda Score')
+    ax.scatter(x,ylist[0],color='c',alpha=0.5, label='Random Priority')
+    ax.scatter(x*0.98,ylist[1],color='r',alpha=0.5, label='Page Rank')
+    ax.scatter(x*1.02,ylist[2],color='b',alpha=0.5, label='EM')
+    ax.scatter(x,ylist[3],color='g',alpha=0.5, label='Borda Score')
     ax.set_xscale('log')
     ld=plt.legend(loc='upper left',prop={'size':16})
     for handle in ld.legendHandles:
@@ -52,6 +48,5 @@ def create_plot(distances_all):
 if __name__ == '__main__':
     distances=extract_distance('../out/results_n_1000_k_[5].csv')
     distances=distances[:1000,:]
-    print (distances.shape)
     create_plot(distances)
     
