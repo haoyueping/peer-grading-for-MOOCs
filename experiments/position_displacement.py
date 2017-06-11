@@ -23,9 +23,12 @@ def display(x, ys, algo_names, id):
     bar_width = 1
     alpha = 0.4
 
-    colors = ['b', 'g', 'r']
+    colors = ['r', 'b', 'g']
     for i in range(len(ys)):
-        plt.scatter(x + (bar_width * i), ys[i].tolist(), bar_width, color = colors[i], alpha = alpha, label=algo_names[i])
+        plt.scatter(x.tolist(), ys[i].tolist(), bar_width, color = colors[i], alpha = alpha, label=algo_names[i])
+    plt.plot(x.tolist(), [0 for x in x.tolist()], color = 'black')
+    plt.plot(x.tolist(), [100 for x in x.tolist()], color = 'black')
+    plt.plot(x.tolist(), [-100 for x in x.tolist()], color = 'black')
     plt.legend()
     plt.ylabel('Average Displacement')
     plt.xlabel('Ground Truth Ranking')
@@ -39,7 +42,7 @@ if __name__ == '__main__':
     result = np.genfromtxt('out/large/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
     start = 6
 
-    ranking_algo = ['page_rank', 'em', 'borda']
+    ranking_algo = ['Random Walk', 'EM', 'Borda Score']
     rankings_pr = []
     rankings_em = []
     rankings_borda = []
