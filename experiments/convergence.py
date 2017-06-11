@@ -35,7 +35,7 @@ def create_plot(distances_all):
     
     ax = plt.gca()
     ax.scatter(x,ylist[0],color='c',alpha=0.5, label='Random Priority')
-    ax.scatter(x*0.98,ylist[1],color='r',alpha=0.5, label='Page Rank')
+    ax.scatter(x*0.98,ylist[1],color='r',alpha=0.5, label='Random Walk')
     ax.scatter(x*1.02,ylist[2],color='b',alpha=0.5, label='EM')
     ax.scatter(x,ylist[3],color='g',alpha=0.5, label='Borda Score')
     ax.set_xscale('log')
