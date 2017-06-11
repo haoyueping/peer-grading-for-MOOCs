@@ -29,7 +29,10 @@ def display(x, ys, algo_names, id):
     plt.plot(x.tolist(), [0 for x in x.tolist()], color = 'black')
     plt.plot(x.tolist(), [100 for x in x.tolist()], color = 'black')
     plt.plot(x.tolist(), [-100 for x in x.tolist()], color = 'black')
-    plt.legend()
+    ld=plt.legend(loc='upper left',prop={'size':16})
+    for handle in ld.legendHandles:
+        handle.set_sizes([150.0])
+    # plt.legend()
     plt.ylabel('Average Displacement')
     plt.xlabel('Ground Truth Ranking')
     plt.tight_layout()

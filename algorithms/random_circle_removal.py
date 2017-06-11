@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 from scipy.stats import kendalltau
+import numpy as np
+import random
 
 from utils.gradings import get_gradings
 
@@ -88,6 +90,27 @@ def random_circle_removal(rankings):
     ranking = topological_sort(graph)
     return ranking
 
+def random_circle_removal_rep(rankings, rep):
+    truth_ranking = list(range(1, n + 1))
+    borda_score = {x: 0 for x in truth_ranking}
+    for i in range(rep):
+        rankings = np.random.permutation(rankings)
+        ranking = random_circle_removal(rankings)
+        for rank, paper in enumerate(ranking):
+            borda_score[paper] += rank
+    borda_score_list = {}
+    for paper, score in borda_score.items():
+        if score not in borda_score_list:
+            borda_score_list[score] = []
+        borda_score_list[score].append(paper)
+
+    ranking = []
+    temp = [(score, paper_list) for score, paper_list in borda_score_list.items()]
+    sorted(temp, key = lambda tuple: tuple[0])
+    for t in temp:
+        random.shuffle(t[1])
+        ranking.extend(t[1])
+    return ranking
 
 if __name__ == '__main__':
     n = 1000
@@ -99,6 +122,11 @@ if __name__ == '__main__':
 
     t = time()
     global_ranking = random_circle_removal(rankings)
+    print('time = {}'.format(time() - t))
+    accuracy = kendalltau(truth_ranking, global_ranking)
+    print(accuracy)
+
+    global_ranking = random_circle_removal_rep(rankings, 1000)
     print('time = {}'.format(time() - t))
     accuracy = kendalltau(truth_ranking, global_ranking)
     print(accuracy)
