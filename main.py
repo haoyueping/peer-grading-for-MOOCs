@@ -14,7 +14,7 @@ from utils.gradings import get_gradings
 
 def experiment(n, k_list, repetition):
     algos = [random_circle_removal, page_rank, em, borda_ordering]
-    algo_names = ['random_circle_removal', 'page_rank', 'em', 'borda_ordering']
+    algo_names = ['Random Priority', 'Random Walk', 'EM', 'Order Score']
 
     df = pd.DataFrame(columns=['n', 'k', 'rep', 'algo', 'time', 'distance', 'ranking'])
     for rep in range(repetition):

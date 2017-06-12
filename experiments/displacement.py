@@ -11,7 +11,7 @@ from algorithms.borda_ordering import borda_ordering
 from algorithms.random_circle_removal import random_circle_removal
 from utils.gradings import get_gradings
 
-ranking_algo = ['page_rank', 'em', 'borda']
+ranking_algo = ['Random Walk', 'EM', 'Order Score']
 
 
 def displacement(rankings, n, m):
@@ -94,7 +94,7 @@ def display(x, y, id):
 if __name__ == '__main__':
     k = [6]
     n = 10000
-    m = 300
+    m = 10
     result = np.genfromtxt('out/large/results_n_{}_k_{}.csv'.format(n, str(k)), delimiter=',', dtype='str', skip_header=1)
     start = 6
 

@@ -59,7 +59,7 @@ if __name__ == '__main__':
     n = 1000
     k = 6
     algos = [random_circle_removal, page_rank, em, borda_ordering]
-    algo_names = ['random_circle_removal', 'page_rank', 'em', 'borda_ordering']
+    algo_names = ['Random Priority', 'Random Walk', 'EM', 'Order Score']
     all2alls = [0 for x in algos]
     th10s = [0 for x in algos]
     th50s = [0 for x in algos]

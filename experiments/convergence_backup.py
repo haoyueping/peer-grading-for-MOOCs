@@ -21,7 +21,7 @@ n=1000#int(float(row1[0]))
 # bo_rankings=np.zeros((0,n)).astype(np.int)
 # array_rankings=[rcr_rankings,pg_rankings,em_rankings,bo_rankings]
 #==============================================================================
-algo_list=['random_circle_removal','page_rank','em','borda_ordering']
+algo_list = ['Random Priority', 'Random Walk', 'EM', 'Order Score']
 array_distance=np.zeros((0,4))
 dist=np.zeros((1,4))
 #==============================================================================
