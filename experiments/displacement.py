@@ -11,7 +11,7 @@ from algorithms.borda_ordering import borda_ordering
 from algorithms.random_circle_removal import random_circle_removal
 from utils.gradings import get_gradings
 
-ranking_algo = ['Random Walk', 'EM', 'Order Score']
+ranking_algo = ['Random Walk', 'EM', 'Border Score']
 
 
 def displacement(rankings, n, m):
@@ -115,8 +115,8 @@ if __name__ == '__main__':
             ranking.append(int(result[i + 2][j]))
         rankings_borda.append(ranking)
     rankings = [rankings_pr, rankings_em, rankings_borda]
-    # x, y = displacement(rankings, n, m)
-    # display(x, y, 1)
+    x, y = displacement(rankings, n, m)
+    display(x, y, 1)
     x, y = interval_displacement(rankings, n, m)
     display(x, y, 2)
     x, y = distribution20(rankings, n, m)
